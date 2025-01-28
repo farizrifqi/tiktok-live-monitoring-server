@@ -130,49 +130,57 @@ app.get('/hist', (req, res) => {
 
 app.get('/proxy-stream/:url/:segment', async (req, res) => {
     const { url, segment } = req.params;
-    const query = req.query;
-    let streamUrl = Buffer.from(reverseInPlace(url), 'base64').toString('utf-8');
+    try {
+        const query = req.query;
+        let streamUrl = Buffer.from(reverseInPlace(url), 'base64').toString('utf-8');
 
-    if (streamUrl.includes('index.m3u8')) {
-        streamUrl = streamUrl.replace('index.m3u8', segment);
-    } else if (streamUrl.includes('.m3u8')) {
-        const parts = streamUrl.split('/');
-        parts[parts.length - 1] = segment;
-        streamUrl = parts.join('/');
-    } else {
-        console.error(`Unknown url`, { url }, { segment });
+        if (streamUrl.includes('index.m3u8')) {
+            streamUrl = streamUrl.replace('index.m3u8', segment);
+        } else if (streamUrl.includes('.m3u8')) {
+            const parts = streamUrl.split('/');
+            parts[parts.length - 1] = segment;
+            streamUrl = parts.join('/');
+        } else {
+            console.error(`Unknown url`, { url }, { segment });
+        }
+
+        if (Object.keys(query).length > 0) {
+            streamUrl += '?' + new URLSearchParams(query).toString();
+        }
+
+        request(streamUrl)
+            .on('response', response => {
+                res.set(response.headers);
+                res.header('Access-Control-Allow-Origin', '*');
+            })
+            .on('error', err => {
+                console.error('Error fetching segment:', err);
+                res.sendStatus(500);
+            })
+            .pipe(res);
+    } catch (err) {
+        res.sendStatus(400).json({ message: 'sad' });
     }
-
-    if (Object.keys(query).length > 0) {
-        streamUrl += '?' + new URLSearchParams(query).toString();
-    }
-
-    request(streamUrl)
-        .on('response', response => {
-            res.set(response.headers);
-            res.header('Access-Control-Allow-Origin', '*');
-        })
-        .on('error', err => {
-            console.error('Error fetching segment:', err);
-            res.sendStatus(500);
-        })
-        .pipe(res);
 });
 
 app.get('/proxy-stream/:url/', async (req, res) => {
-    const { url } = req.params;
-    const streamUrl = Buffer.from(reverseInPlace(url), 'base64').toString('utf-8');
+    try {
+        const { url } = req.params;
+        const streamUrl = Buffer.from(reverseInPlace(url), 'base64').toString('utf-8');
 
-    request(streamUrl)
-        .on('response', response => {
-            res.set(response.headers);
-            res.header('Access-Control-Allow-Origin', '*');
-        })
-        .on('error', err => {
-            console.error('Error fetching segment:', err);
-            res.sendStatus(500);
-        })
-        .pipe(res);
+        request(streamUrl)
+            .on('response', response => {
+                res.set(response.headers);
+                res.header('Access-Control-Allow-Origin', '*');
+            })
+            .on('error', err => {
+                console.error('Error fetching segment:', err);
+                res.sendStatus(500);
+            })
+            .pipe(res);
+    } catch (err) {
+        res.sendStatus(400).json({ message: 'sad' });
+    }
 });
 
 app.post('/webhooks', async (req, res) => {
