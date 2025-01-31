@@ -22,7 +22,7 @@ This server uses **[TikTok-Live-Connector](https://github.com/zerodytrash/TikTok
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/farizrifqi/adv-ttl-server.git
+    git clone https://github.com/farizrifqi/tiktok-live-monitoring-server.git
     cd adv-ttl-server
     ```
 2. Install dependencies:
