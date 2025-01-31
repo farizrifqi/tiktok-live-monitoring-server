@@ -1,6 +1,6 @@
-# Advanced TikTok Live Server
+# TikTok Live Monitoring (Server)
 
-This is the Express.js version of the server for **[Adv-TTL-Client](https://github.com/farizrifqi/adv-ttl-client)**, a project designed to interact with TikTok Livestreams.
+This is the server for **[Tiktok Live Monitoring (WebUI)](https://github.com/farizrifqi/tiktok-live-monitoring-webui)**, a project designed to interact with TikTok Livestreams.
 
 This server uses **[TikTok-Live-Connector](https://github.com/zerodytrash/TikTok-Live-Connector/)** to connect to TikTok Livestreams and relay real-time events such as chat messages, gifts, likes, and more to the client.
 
@@ -14,7 +14,7 @@ This server uses **[TikTok-Live-Connector](https://github.com/zerodytrash/TikTok
 -   **Reconnection Logic**: Automatically reconnects to the TikTok Livestream if the connection is lost.
 -   **Room Info Retrieval**: Fetches room information (e.g., viewer count, stream status) when connecting to a livestream.
 -   **History Tracking**: Keeps track of usernames that have been listened to.
--   Stream Proxy is available under `/proxy-stream/` route. For the Cloudflare Worker version, visit **[Adv-TTL-Proxy-Worker](https://github.com/farizrifqi/adv-ttl-proxy-worker)**.
+-   Stream Proxy is available under `/proxy-stream/` route. For the Cloudflare Worker version, visit **[Tiktok Live Proxy](https://github.com/farizrifqi/tiktok-live-proxy)**.
 
 ---
 
@@ -100,5 +100,5 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 ## Acknowledgments
 
 -   [TikTok-Live-Connector](https://github.com/zerodytrash/TikTok-Live-Connector/): For providing the core functionality to connect to TikTok Livestreams.
--   [Adv-TTL-Client](https://github.com/farizrifqi/adv-ttl-client): The client-side application that interacts with this server.
--   [Adv-TTL-Proxy-Worker](https://github.com/farizrifqi/adv-ttl-proxy-worker): For providing the stream proxy functionality using Cloudflare Workers.
+-   [Tiktok Live Monitoring (WebUI)](https://github.com/farizrifqi/tiktok-live-monitoring-webui): The client-side application that interacts with this server.
+-   [Tiktok Live Proxy](https://github.com/farizrifqi/tiktok-live-proxy): For providing the stream proxy functionality using Cloudflare Workers.
