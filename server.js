@@ -71,13 +71,11 @@ function setupConnectionEvents(wrapper, socket, username) {
     });
 
     wrapper.once('disconnected', reason => {
-        let message;
+        let message = reason;
         if (reason.toString().includes('Failed to retrieve room_id from page source')) {
             message = 'Username not found';
         } else if (reason.toString().includes('not offer a websocket upgrade.')) {
-            message = 'Considering to use proxy';
-        } else {
-            message = reason;
+            message = 'Considering to use proxy or change server';
         }
         socket.emit('data-connection', JSON.stringify({ isConnected: false, message }));
     });

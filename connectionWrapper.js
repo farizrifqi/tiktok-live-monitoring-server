@@ -94,8 +94,8 @@ class TikTokConnectionWrapper extends EventEmitter {
                             'Currently unavailable to reconnect. Please change server.',
                         );
                     } else {
-                        console.error(err);
-                        this.emit('disconnected', err.toString());
+                        console.error('Unknown error', err);
+                        this.emit('disconnected', 'Unknown error.');
                     }
                 }
             });
